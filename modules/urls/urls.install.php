@@ -26,7 +26,7 @@ function urls_settings() {
 	return array(
 		'name'      => 'urls',
 		'shortName' => 'urls',
-		'version'   => '1.0'
+		'version'   => '1.0.1'
 	);
 }
 function urls_install($db,$drop=false,$firstInstall = FALSE,$lang = "en_us") {

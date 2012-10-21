@@ -39,7 +39,7 @@ function theme_urlsListTableHead($data) {
 			</a>
 		</div>
 		<table class="remapList">
-			<caption>',$data->phrases['urls']['manageURLsHeading'],'</caption>
+			<caption>',($data->action[3]==='override'?$data->phrases['urls']['propertyOverrides']:$data->phrases['urls']['manageURLsHeading']),'</caption>
 			<thead>
 				<tr>
 					<th class="match">',$data->phrases['urls']['pattern'],'</th>
@@ -88,8 +88,17 @@ function theme_urlsListTableFoot($data) {
 			</tbody>
 		</table>
 		<div class="panel buttonList">
+			<a href="',$data->linkRoot,'admin/urls/list/">
+				',$data->phrases['core']['permission_urls_list'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/urls/list/override/">
+				',$data->phrases['urls']['propertyOverrides'],'
+			</a>
 			<a href="',$data->linkRoot,'admin/urls/add/">
 				',$data->phrases['urls']['addRemap'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/urls/add/override/">
+				',$data->phrases['urls']['addOverride'],'
 			</a>
 		</div>
 		';
