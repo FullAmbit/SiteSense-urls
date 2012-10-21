@@ -33,7 +33,11 @@ function admin_urlsBuild($data,$db) {
     $statement = $db->prepare('getAllHostnames','admin_hostnames');
     $statement->execute();
     $data->output['hostnameList'] = $statement->fetchAll(PDO::FETCH_ASSOC);
-    $form = $data->output['remapForm'] = new formHandler('addEdit',$data,true);
+	if($data->action[3]==='override'){
+		$form = $data->output['remapForm'] = new formHandler('override',$data,true);
+	}else{
+		$form = $data->output['remapForm'] = new formHandler('addEdit',$data,true);
+	}
 	
 	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)) {
 		// Populate The Send Array

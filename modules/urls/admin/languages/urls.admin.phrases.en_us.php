@@ -30,7 +30,14 @@ function languages_urls_admin_en_us(){
 		'captionAddRemap'           => 'Create A URL Remap',
 		'submitAddEditForm'         => 'Save URL Remap',
 		'saveRemapSuccess'          => 'Remap Successfully Saved',
-		'captionEditRemap'          => 'Edit URL Remap'
+		'captionEditRemap'          => 'Edit URL Remap',
+		'labelPageTitle'            => 'Page Title',
+		'labelMetaKeywords'         => 'Meta Keywords',
+		'labelMetaDescription'      => 'Meta Description',
+		'propertyOverrides'         => 'Page Property Overrides',
+		'overrideProperties'        => 'Override Page Properties',
+		'addOverride'               => 'Add Page Property Override',
+		'labelValue'                => 'Value',
+		'descriptionValue'          => 'The value to override with.',
 	);
 }
-?>
