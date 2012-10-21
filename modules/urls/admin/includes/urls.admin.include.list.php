@@ -32,7 +32,11 @@ function admin_urlsBuild($data,$db) {
         admin_sortOrder_move($data,$db,'urls',$data->action[3],$data->action[4],'sortOrder',NULL,FALSE);
     }
     $data->output['messageListLimit']=ADMIN_SHOWPERPAGE;
-	$messages = $db->query('getAllUrlRemaps','admin_urls');
+	if($data->action[3]==='override'){
+		$messages = $db->query('getAllPropOverrides','admin_urls');
+	}else{
+		$messages = $db->query('getAllUrlRemaps','admin_urls');
+	}
 	$data->output['remapList'] = $messages->fetchAll();
 }
 function admin_urlsShow($data) {

@@ -86,6 +86,7 @@ function admin_urlsBuild($data,$db) {
             } else {
 				if($data->action[3]==='override'){
 					$form->sendArray[':regex']=0;
+					$form->sendArray[':replace'] = htmlentities($form->sendArray[':replace'],ENT_QUOTES,'UTF-8');
 				}
                 $form->sendArray[':sortOrder']=admin_sortOrder_new($data,$db,'urls','sortOrder');
 				$db->prepare('remUniqueSchema','admin_urls')->execute();

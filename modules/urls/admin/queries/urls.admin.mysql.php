@@ -30,6 +30,12 @@ function admin_urls_addQueries() {
 	return array(
 		'getAllUrlRemaps' => '
 			SELECT * FROM !prefix!urls
+			WHERE isRedirect < 2
+			ORDER BY sortOrder ASC
+		',
+		'getAllPropOverrides' => '
+			SELECT * FROM !prefix!urls
+			WHERE isRedirect > 1
 			ORDER BY sortOrder ASC
 		',
 		'getUrlRemapById' => '

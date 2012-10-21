@@ -25,8 +25,17 @@
 function theme_urlsListTableHead($data) {
 	echo '
 		<div class="panel buttonList">
+			<a href="',$data->linkRoot,'admin/urls/list/">
+				',$data->phrases['core']['permission_urls_list'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/urls/list/override/">
+				',$data->phrases['urls']['propertyOverrides'],'
+			</a>
 			<a href="',$data->linkRoot,'admin/urls/add/">
 				',$data->phrases['urls']['addRemap'],'
+			</a>
+			<a href="',$data->linkRoot,'admin/urls/add/override/">
+				',$data->phrases['urls']['addOverride'],'
 			</a>
 		</div>
 		<table class="remapList">
@@ -51,11 +60,18 @@ function theme_urlsListTableRow($remap,$linkRoot,$key) {
         $remap['match']=str_replace('(/.*)?$','',$remap['match']);
         $remap['replace']=str_replace('\1','',$remap['replace']);
     }
+	switch($remap['isRedirect']){
+		case 0: $remap['isRedirect']='Remap'; break;
+		case 1: $remap['isRedirect']='Redirect'; break;
+		case 2: $remap['isRedirect']='Page Title'; break;
+		case 3: $remap['isRedirect']='Meta Keywords'; break;
+		case 4: $remap['isRedirect']='Meta Description'; break;
+	}
     echo '
 		<tr class="', ($key%2==0 ? 'even' : 'odd'),'">
 			<td class="match">', $remap['match'], '</td>
 			<td class="replacement">', $remap['replace'], '</td>
-			<td class="type">',($remap['isRedirect']=='0') ? "Remap" : "Redirect",'</td>
+			<td class="type">',$remap['isRedirect'],'</td>
 			<td class="hostname">',($remap['hostname']=='') ? 'Global' : $remap['hostname'],'</td>
             <td class="replacement">', ($remap['regex'] ? 'Regular Expressions':'Standard'), '</td>
 			<td class="buttonList">

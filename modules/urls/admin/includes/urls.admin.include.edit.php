@@ -52,7 +52,12 @@ function admin_urlsBuild($data,$db) {
     $data->output['hostnameList'] = $statement->fetchAll(PDO::FETCH_ASSOC);
     
 	// Create The Form
-	$form = $data->output['remapForm'] = new formHandler('addEdit',$data,true);
+	if($data->output['urlremap']['isRedirect']<2){
+		$form = $data->output['remapForm'] = new formHandler('addEdit',$data,true);
+	}else{
+		$form = $data->output['remapForm'] = new formHandler('override',$data,true);
+		unset($form->fields['isRedirect']);
+	}
 	$form->caption = $data->phrases['urls']['captionEditRemap'];
 	
 	if ((!empty($_POST['fromForm'])) && ($_POST['fromForm']==$form->fromForm)) {
@@ -76,8 +81,14 @@ function admin_urlsBuild($data,$db) {
                 $form->sendArray[':match']='^'.$form->sendArray[':match'].'(/.*)?$';
                 $form->sendArray[':replace']=$form->sendArray[':replace'].'\1';
             }
+			$db->prepare('remUniqueSchema','admin_urls')->execute();
+			$db->prepare('addUniqueSchema','admin_urls')->execute();
             $statement = $db->prepare('editUrlRemap','admin_urls');
             $form->sendArray[':id'] = $remapId;
+			if($data->output['urlremap']['isRedrect']>2){
+				$form->sendArray[':isRedirect'] = $data->output['urlremap']['isRedirect'];
+				$form->sendArray[':replace'] = htmlentities($form->sendArray[':replace'],ENT_QUOTES,'UTF-8');
+			}
             $result = $statement->execute($form->sendArray) ;
 			
 			if($result == FALSE) {
