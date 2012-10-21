@@ -31,13 +31,14 @@ function languages_urls_admin_en_us(){
 		'submitAddEditForm'         => 'Save URL Remap',
 		'saveRemapSuccess'          => 'Remap Successfully Saved',
 		'captionEditRemap'          => 'Edit URL Remap',
+		'labelType'                 => 'Override Type',
 		'labelPageTitle'            => 'Page Title',
 		'labelMetaKeywords'         => 'Meta Keywords',
 		'labelMetaDescription'      => 'Meta Description',
 		'propertyOverrides'         => 'Page Property Overrides',
 		'overrideProperties'        => 'Override Page Properties',
 		'addOverride'               => 'Add Page Property Override',
-		'labelValue'                => 'Value',
+		'labelValue'                => 'Override Value',
 		'descriptionValue'          => 'The value to override with.',
 	);
 }

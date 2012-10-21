@@ -52,19 +52,23 @@ function admin_urls_addQueries() {
 		'deleteUrlRemap' => '
 			DELETE FROM !prefix!urls WHERE id = :id
 		',
-		
 		'deleteByHostname' => '
 			DELETE FROM !prefix!urls WHERE hostname = :hostname
 		',
 		'deleteReplacementByMatch' => '
-      DELETE FROM !prefix!urls
-      WHERE `match` = :match
-    ',
-    'updateUrlRemapByMatch' => '
+			DELETE FROM !prefix!urls
+			WHERE `match` = :match
+		',
+		'updateUrlRemapByMatch' => '
 			UPDATE !prefix!urls
 			SET `match` = :newMatch, `replace` = :replace
 			WHERE `match` = :match
-    '
+		',
+		'remUniqueSchema' => '
+			DROP INDEX match_hostName on !prefix!urls
+		',
+		'addUniqueSchema' => '
+			ALTER TABLE !prefix!urls ADD UNIQUE (`match`,`hostname`,`isRedirect`)
+		',
 	);
 }
-?>

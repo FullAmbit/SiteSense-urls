@@ -46,7 +46,7 @@ function admin_urlsBuild($data,$db) {
 			// Check Hostname
 			if(!isset($form->sendArray[':hostname'])) $form->sendArray[':hostname'] = '';
 			
-            if(!$form->sendArray[':regex']) {
+            if($data->action[3]!=='override'&&!$form->sendArray[':regex']) {
                 // Standard
                 $form->sendArray[':match']=str_replace('^','',$form->sendArray[':match']);
                 $form->sendArray[':match']=str_replace('(/.*)?$','',$form->sendArray[':match']);
@@ -84,7 +84,12 @@ function admin_urlsBuild($data,$db) {
                     return;
                 }
             } else {
+				if($data->action[3]==='override'){
+					$form->sendArray[':regex']=0;
+				}
                 $form->sendArray[':sortOrder']=admin_sortOrder_new($data,$db,'urls','sortOrder');
+				$db->prepare('remUniqueSchema','admin_urls')->execute();
+				$db->prepare('addUniqueSchema','admin_urls')->execute();
                 $statement = $db->prepare('insertUrlRemap','admin_urls','sortOrder','hostname',$form->sendArray[':hostname']);
                 $result = $statement->execute($form->sendArray);
                 if($result == FALSE) {

@@ -40,22 +40,22 @@ $this->fields=array(
 			</p>
 		'
 	),
-	'type' => array(
+	'isRedirect' => array(
 		'label' => $data->phrases['urls']['labelType'],
         'required' => true,
 		'tag' => 'select',
 		'value' => isset($data->output['urlremap']['type']) ? $data->output['urlremap']['type'] : '',
 		'options' => array(
 			array(
-				'text' => $data->output['urlremap']['labelPageTitle'],
+				'text' => $data->phrases['urls']['labelPageTitle'],
 				'value'=> '2',
 			),
 			array(
-				'text' => $data->output['urlremap']['labelMetaKeywords'],
+				'text' => $data->phrases['urls']['labelMetaKeywords'],
 				'value'=> '3',
 			),
 			array(
-				'text' => $data->output['urlremap']['labelMetaDescription'],
+				'text' => $data->phrases['urls']['labelMetaDescription'],
 				'value'=>'4',
 			),
 		),
@@ -65,11 +65,11 @@ $this->fields=array(
 			</p>
 		'
 	),
-	'value' => array(
+	'replace' => array(
 		'label' => $data->phrases['urls']['labelValue'],
 		'required' => true,
 		'tag' => 'input',
-		'value' => isset($data->output['urlremap']['value']) ? $data->output['urlremap']['value'] : '',
+		'value' => isset($data->output['urlremap']['replace']) ? $data->output['urlremap']['replace'] : '',
 		'params' => array(
 			'type' => 'text',
 		),
@@ -80,6 +80,7 @@ $this->fields=array(
 	'hostname' => array(
 		'tag' => 'select',
 		'label' => $data->phrases['urls']['hostname'],
+		'required' => false,
 		'options' => array(
 			array(
 				'value' => '',
@@ -89,12 +90,9 @@ $this->fields=array(
 		'value' => (isset($data->output['urlremap']['hostname'])) ? $data->output['urlremap']['hostname'] : ''
 	),
 );
-
-if(isset($data->output['hostnameList'])){
-	foreach($data->output['hostnameList'] as $hostnameItem){
-		$this->fields['hostname']['options'][] = array(
-			'value' => $hostnameItem['hostname'],
-			'text' => $hostnameItem['hostname']
-		);
-	}
+foreach($data->output['hostnameList'] as $hostnameItem){
+	$this->fields['hostname']['options'][] = array(
+		'value' => $hostnameItem['hostname'],
+		'text' => $hostnameItem['hostname']
+	);
 }

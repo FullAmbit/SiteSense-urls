@@ -40,7 +40,7 @@ function urls_install($db,$drop=false,$firstInstall = FALSE,$lang = "en_us") {
 	            'regex'     => SQR_boolean,
 	            'sortOrder' => SQR_sortOrder,
 	            'isRedirect'=> SQR_boolean,
-	            'UNIQUE KEY `match_hostName` (`match`,`hostname`)'
+	            'UNIQUE KEY `match_hostName` (`match`,`hostname`,`isRedirect`)'
 			)
 		);
 		if($drop)
@@ -52,4 +52,3 @@ function urls_install($db,$drop=false,$firstInstall = FALSE,$lang = "en_us") {
 function urls_uninstall($db) {
 	$db->dropTable('urls');
 }
-?>
