@@ -72,6 +72,7 @@ $this->fields=array(
 		'value' => isset($data->output['urlremap']['replace']) ? $data->output['urlremap']['replace'] : '',
 		'params' => array(
 			'type' => 'text',
+			'size' => 255,
 		),
 		'description'=>'
 			<b>'.$data->phrases['urls']['labelValue'].'</b><br />
