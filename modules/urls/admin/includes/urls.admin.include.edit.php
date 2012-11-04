@@ -67,7 +67,7 @@ function admin_urlsBuild($data,$db) {
 			// Check Hostname
 			if(!isset($form->sendArray[':hostname'])) $form->sendArray[':hostname'] = '';
 			
-			if(!$data->output['urlremap']['regex']) {
+			if($data->output['urlremap']['isRedirect']<2&&!$data->output['urlremap']['regex']) {
                 // Remove
                 $form->sendArray[':match']=str_replace('^','',$form->sendArray[':match']);
                 $form->sendArray[':match']=str_replace('(/.*)?$','',$form->sendArray[':match']);
@@ -85,12 +85,12 @@ function admin_urlsBuild($data,$db) {
 			$db->prepare('addUniqueSchema','admin_urls')->execute();
             $statement = $db->prepare('editUrlRemap','admin_urls');
             $form->sendArray[':id'] = $remapId;
-			if($data->output['urlremap']['isRedrect']>2){
+			if($data->output['urlremap']['isRedirect']>1){
 				$form->sendArray[':isRedirect'] = $data->output['urlremap']['isRedirect'];
 				$form->sendArray[':replace'] = htmlentities($form->sendArray[':replace'],ENT_QUOTES,'UTF-8');
+				$form->sendArray[':hostname'] = $data->output['urlremap']['hostname'];
 			}
             $result = $statement->execute($form->sendArray) ;
-			
 			if($result == FALSE) {
                 $data->output['remapForm']->fields['match']['error']=true;
                 $data->output['remapForm']->fields['match']['errorList'][]='<h2>'.$data->phrases['core']['uniqueNameConflictHeading'].'</h2>'.$data->phrases['core']['uniqueNameConflictMessage'];
